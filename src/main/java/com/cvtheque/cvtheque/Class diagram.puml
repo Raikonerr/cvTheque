@@ -1,0 +1,32 @@
+@startuml
+
+class Learner {
+  - name: String
+  - email: String
+  - password: String
+  - profile: Profile
+  - cv: CV
+  - status: String
+}
+class Profile {
+  - technicalSkills: List<String>
+  - softSkills: List<String>
+}
+class CV {
+  - content: String
+  - comments: List<Comment>
+}
+class Comment {
+  - content: String
+  - cme: CME
+}
+class CME {
+  - name: String
+  - email: String
+  - password: String
+}
+
+Learner "1" -- "1" Profile
+Learner "1" -- "1" CV
+CV "*" -- "*" Comment
+@enduml
