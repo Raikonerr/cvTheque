@@ -8,6 +8,8 @@ class Learner {
   - cv: CV
   - status: String
 }
+
+
 class Profile {
   - technicalSkills: List<String>
   - softSkills: List<String>
