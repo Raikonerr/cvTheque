@@ -12,4 +12,5 @@ public class Cme extends Person{
 
     @OneToMany(mappedBy = "cme")
     private List<Comment> comments;
+
 }
