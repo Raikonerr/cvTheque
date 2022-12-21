@@ -17,4 +17,7 @@ public class Comment {
 
     @ManyToOne
     private Cme cme;
+
+    @ManyToOne
+    private CV cv;
 }
