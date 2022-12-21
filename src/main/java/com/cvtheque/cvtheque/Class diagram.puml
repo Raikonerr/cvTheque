@@ -1,32 +1,65 @@
 @startuml
 
-class Learner {
-  - name: String
-  - email: String
-  - password: String
-  - profile: Profile
-  - cv: CV
-  - status: String
-}
-class Profile {
-  - technicalSkills: List<String>
-  - softSkills: List<String>
-}
-class CV {
-  - content: String
-  - comments: List<Comment>
-}
-class Comment {
-  - content: String
-  - cme: CME
-}
-class CME {
-  - name: String
-  - email: String
-  - password: String
+/'
+ * The Person class represents a person with a name and email address.
+ '/
+class Person {
+  +name: string
+  +email: string
 }
 
-Learner "1" -- "1" Profile
-Learner "1" -- "1" CV
-CV "*" -- "*" Comment
-@enduml
+/'
+ * The Learner class represents a learner who has technical skills, soft skills,
+ * and a status. It is a subclass of Person, meaning it inherits attributes and
+ * methods from the Person class.
+ '/
+class Learner {
+  +technicalSkills: string
+  +softSkills: string
+  +status: string
+}
+
+/'
+ * The CME class represents a CME who can make comments on learners' CVs. It is
+ * a subclass of Person, meaning it inherits attributes and methods from the
+ * Person class.
+ *''/
+class CME {
+  +comment: string
+}
+
+/'
+ * The Trainer class represents a trainer who has access to the application to
+ * see the class follow-up. It is a subclass of Person, meaning it inherits
+ * attributes and methods from the Person class.
+ '/
+class Trainer {
+}
+
+Person <|-- Learner
+Person <|-- CME
+Person <|-- Trainer
+
+/'
+ * The WebApplication class represents a web application that manages the
+ * documents of learners and allows them to update their profiles, CVs, and
+ * technical and soft skills. CMEs can search for learners by technology and
+ * comment on their CVs, and trainers can see the class follow-up. The
+ * application also sends notifications to learners when a CME comments on their
+ * CV.
+ '/
+class WebApplication {
+  +updateCV(learner: Learner): void
+  +searchByTechnology(technology: string): void
+  +commentOnCV(cme: CME, learner: Learner): void
+  +sendNotification(learner: Learner): void
+  +followUp(trainer: Trainer): void
+}
+
+WebApplication "1" -- "*" Learner : manages documents
+WebApplication "1" -- "*" CME : has access to
+WebApplication "1" -- "1" Trainer : has access to
+
+@end
+
+
