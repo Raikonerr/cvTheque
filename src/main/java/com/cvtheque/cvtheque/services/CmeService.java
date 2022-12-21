@@ -13,4 +13,9 @@ public class CmeService {
     public CmeService(CmeRepo cmeRepo){
         this.cmeRepo = cmeRepo;
     }
+
+    //Create Cme
+    public Cme save(Cme cme){
+        return cmeRepo.save(cme);
+    }
 }
