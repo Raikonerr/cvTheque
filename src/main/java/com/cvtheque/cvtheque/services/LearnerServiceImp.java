@@ -29,6 +29,13 @@ public class LearnerServiceImp implements LearnerService {
         learnerRepo.delete(learner);
     }
 
+
+    public Learner DeleteLearnerById(int id) {
+        Learner learner = learnerRepo.findById(id).get();
+        learnerRepo.delete(learner);
+        return learner;
+    }
+
     @Override
     public Learner getLearnerById(int id) {
         return learnerRepo.findById(id).get();
@@ -38,5 +45,6 @@ public class LearnerServiceImp implements LearnerService {
     public Iterable<Learner> getAllLearner() {
         return learnerRepo.findAll();
     }
+
 }
 
