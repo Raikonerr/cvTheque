@@ -36,6 +36,6 @@ public class CommentService {
 
     //get service with id
     public Comment getComment(int id){
-        return commentRepo.getReferenceById(id);
+        return commentRepo.findById(id).get();
     }
 }
