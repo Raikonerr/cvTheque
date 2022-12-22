@@ -22,6 +22,7 @@ public class CommentService {
 
     //get All comments of a cv
     public List<Comment> getCommentsOfCv(int id){
+
         return commentRepo.findAllByCv_id(id);
     }
 
@@ -30,11 +31,8 @@ public class CommentService {
         commentRepo.delete(comment);
     }
 
-    // updateComment
-    public boolean updateComment(String body,int id){
-        commentRepo.updateComment(body,id);
-        return true;
-    }
+
+
 
     //get service with id
     public Comment getComment(int id){

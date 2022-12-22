@@ -11,8 +11,6 @@ public interface CommentRepo extends JpaRepository<Comment,Integer> {
 
     List<Comment> findAllByCv_id(int id);
 
-    @Modifying
-    @Query("update Comment c set c.body=?1 where c.id=?2")
-    void updateComment(String body,int id);
+
 
 }
