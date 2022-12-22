@@ -27,8 +27,8 @@ public class CommentController {
     //Create Comment
     public ResponseEntity<Comment> saveComment(@RequestBody Comment comment) {
         try {
-            return new ResponseEntity<>(commentService.save(comment), HttpStatus.CREATED);
-        }finally {
+            return new ResponseEntity<>(commentService.save(comment),HttpStatus.CREATED);
+        }catch (Exception e){
             throw new BadRequestException("Something wrong in the form or values of the required data");
         }
 
@@ -39,7 +39,7 @@ public class CommentController {
     public ResponseEntity<List<Comment>> getCommentsOfCv(@PathVariable int id){
          try {
              return new ResponseEntity<>(commentService.getCommentsOfCv(id),HttpStatus.OK);
-         }finally {
+         }catch (Exception e){
              throw new NotFoundException("There is no cv with id : " + id);
          }
 
@@ -52,7 +52,7 @@ public class CommentController {
         try {
             Comment comment = commentService.getComment(id);
             return new ResponseEntity<>(comment,HttpStatus.OK);
-        }finally{
+        }catch (Exception e){
             throw new NotFoundException("There is no comment with id : " + id);
         }
     }
@@ -65,10 +65,10 @@ public class CommentController {
             try {
                 comment.setBody(updatedComment.getBody());
                 return new ResponseEntity<>(commentService.save(comment),HttpStatus.OK);
-            }finally {
+            }catch (Exception e){
                 throw new BadRequestException("Something wrong in the form or values of the required data");
             }
-        }finally {
+        }catch (Exception e){
             throw new NotFoundException("There is no comment with id : " + id);
         }
     }
@@ -82,10 +82,10 @@ public class CommentController {
             try {
                 commentService.deleteComment(commentToDelete);
                 return new ResponseEntity<>(true,HttpStatus.OK);
-            }finally {
+            }catch (Exception e){
                 throw new BadRequestException("Something wrong in the form or values of the required data");
             }
-        }finally {
+        }catch (Exception e){
             throw new NotFoundException("There is no comment with id : " + id);
         }
     }

@@ -13,7 +13,7 @@ public class ApiExceptionHandler {
         // Customise the exception body
         ApiException apiException = new ApiException(e.getMessage(),HttpStatus.NOT_FOUND);
         // Return the exception response
-        return new ResponseEntity<>(apiException,HttpStatus.NOT_FOUND);
+        return new ResponseEntity<>(apiException,apiException.getHttpStatus());
     }
 
     @ExceptionHandler(value = BadRequestException.class)
@@ -21,6 +21,6 @@ public class ApiExceptionHandler {
         // Customise the exception body
         ApiException apiException = new ApiException(e.getMessage(),HttpStatus.NOT_FOUND);
         // Return the exception response
-        return new ResponseEntity<>(apiException,HttpStatus.BAD_REQUEST);
+        return new ResponseEntity<>(apiException,apiException.getHttpStatus());
     }
 }
