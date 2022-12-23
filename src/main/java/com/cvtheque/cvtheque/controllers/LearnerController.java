@@ -1,5 +1,7 @@
 package com.cvtheque.cvtheque.controllers;
 
+import com.cvtheque.cvtheque.exceptions.BadRequestException;
+import com.cvtheque.cvtheque.exceptions.NotFoundException;
 import com.cvtheque.cvtheque.models.Learner;
 import com.cvtheque.cvtheque.services.LearnerService;
 import com.cvtheque.cvtheque.services.LearnerServiceImp;
@@ -20,7 +22,11 @@ public class LearnerController {
 
         @PostMapping()
         public ResponseEntity<Learner> saveLearner(@RequestBody Learner learner){
+            try{
             return new ResponseEntity<>(learnerService.saveLearner(learner), HttpStatus.CREATED);
+            }catch (Exception e){
+                throw new BadRequestException("Something wrong in the form or values of the required data");
+            }
         }
 
     @GetMapping
@@ -31,19 +37,47 @@ public class LearnerController {
 
         @GetMapping("/{id}")
         public ResponseEntity<Learner> findLearnerById(@PathVariable Integer id){
-            return new ResponseEntity<>(learnerService.getLearnerById(id), HttpStatus.OK);
+            try {
+                return new ResponseEntity<>(learnerService.getLearnerById(id), HttpStatus.OK);
+            }catch(Exception e){
+                throw new NotFoundException("There is no learner with id : " + id);
+            }
         }
 
         @PutMapping("/{id}")
         public ResponseEntity<Learner> updateLearner(@PathVariable Integer id, @RequestBody Learner learner){
-            return new ResponseEntity<>(learnerService.updateLearner(learner), HttpStatus.OK);
+           try{
+                 learnerService.getLearnerById(id);
+               try
+               {
+                learner.setFirst_name(learner.getFirst_name());
+                learner.setLast_name(learner.getLast_name());
+                learner.setEmail(learner.getEmail());
+                learner.setPassword(learner.getPassword());
+                return new ResponseEntity<>(learnerService.saveLearner(learner), HttpStatus.OK);
+               }catch (Exception e){
+                   throw new BadRequestException("Something wrong in the form or values of the required data");
+               }
+           }catch (Exception e){
+               throw new NotFoundException("There is no learner with id : " + id);
+           }
         }
 
         @DeleteMapping("/{id}")
         public ResponseEntity<Void> deleteLearner(@PathVariable Integer id){
-            learnerService.DeleteLearnerById(id);
-            return new ResponseEntity<>(HttpStatus.NO_CONTENT);
+            try{
+                //find the learner
+                learnerService.getLearnerById(id);
+                try {
+                    //delete the learner
+                    learnerService.DeleteLearnerById(id);
+                    return new ResponseEntity<>(HttpStatus.NO_CONTENT);
+                }catch(Exception e){
+                    throw new BadRequestException("Something wrong in the form or values of the required data");
+                }
+            }catch(Exception e){
+                throw new NotFoundException("There is no learner with id : " + id);
+            }
         }
-
 
 }
