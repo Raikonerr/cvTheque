@@ -45,22 +45,22 @@ public class LearnerController {
         }
 
         @PutMapping("/{id}")
-        public ResponseEntity<Learner> updateLearner(@PathVariable Integer id, @RequestBody Learner learner){
-           try{
-                 learnerService.getLearnerById(id);
-               try
-               {
-                learner.setFirst_name(learner.getFirst_name());
-                learner.setLast_name(learner.getLast_name());
-                learner.setEmail(learner.getEmail());
-                learner.setPassword(learner.getPassword());
-                return new ResponseEntity<>(learnerService.saveLearner(learner), HttpStatus.OK);
-               }catch (Exception e){
-                   throw new BadRequestException("Something wrong in the form or values of the required data");
-               }
-           }catch (Exception e){
-               throw new NotFoundException("There is no learner with id : " + id);
-           }
+      public ResponseEntity<Learner> updateLearner(@RequestBody Learner updatedLearner, @PathVariable int id)
+        {
+            try{
+                Learner learner = learnerService.getLearnerById(id);
+                try{
+                    learner.setFirst_name(updatedLearner.getFirst_name());
+                    learner.setLast_name(updatedLearner.getLast_name());
+                    learner.setEmail(updatedLearner.getEmail());
+                    learner.setPassword(updatedLearner.getPassword());
+                    return new ResponseEntity<>(learnerService.updateLearner(learner), HttpStatus.OK);
+                }catch (Exception e){
+                    throw new BadRequestException("Something wrong in the form or values of the required data");
+                }
+            }catch (Exception e){
+                throw new NotFoundException("There is no learner with id : " + id);
+            }
         }
 
         @DeleteMapping("/{id}")
