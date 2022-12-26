@@ -5,6 +5,8 @@ import com.cvtheque.cvtheque.repositories.LearnerRepo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.Optional;
+
 @Service
 public class LearnerServiceImp implements LearnerService {
    @Autowired
@@ -38,7 +40,8 @@ public class LearnerServiceImp implements LearnerService {
 
     @Override
     public Learner getLearnerById(int id) {
-        return learnerRepo.findById(id).get();
+         Optional<Learner> learner = learnerRepo.findById(id);
+         return learner.get();
     }
 
     @Override

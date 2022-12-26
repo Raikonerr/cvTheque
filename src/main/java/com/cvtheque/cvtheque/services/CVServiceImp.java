@@ -3,10 +3,12 @@ package com.cvtheque.cvtheque.services;
 import com.cvtheque.cvtheque.models.CV;
 import com.cvtheque.cvtheque.repositories.CVRepo;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatusCode;
 import org.springframework.stereotype.Service;
 @Service
 public class CVServiceImp implements CVService {
-   @Autowired
+    public HttpStatusCode getCvByLearnerId;
+    @Autowired
     private CVRepo cvRepo;
 
     public CVServiceImp(CVRepo cvRepo) {
@@ -36,5 +38,11 @@ public class CVServiceImp implements CVService {
     @Override
     public Iterable<CV> getAllCv() {
         return cvRepo.findAll();
+    }
+    
+    // get cv by learner id
+    
+    public CV getCvByLearnerId(int id) {
+        return cvRepo.findByLearnerId(id);
     }
 }
