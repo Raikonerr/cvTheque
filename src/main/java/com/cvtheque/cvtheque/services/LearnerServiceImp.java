@@ -3,6 +3,8 @@ package com.cvtheque.cvtheque.services;
 import com.cvtheque.cvtheque.models.Learner;
 import com.cvtheque.cvtheque.repositories.LearnerRepo;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.userdetails.UserDetails;
+import org.springframework.stereotype.Component;
 import org.springframework.stereotype.Service;
 
 import java.util.Optional;
@@ -15,6 +17,8 @@ public class LearnerServiceImp implements LearnerService {
     public LearnerServiceImp(LearnerRepo learnerRepo) {
         this.learnerRepo = learnerRepo;
     }
+
+
 
     @Override
     public Learner saveLearner(Learner learner) {
@@ -29,6 +33,9 @@ public class LearnerServiceImp implements LearnerService {
     @Override
     public void deleteLearner(Learner learner) {
         learnerRepo.delete(learner);
+    }
+    public Learner findByEmailOrUsername(String email) {
+        return null;
     }
 
 
@@ -47,6 +54,11 @@ public class LearnerServiceImp implements LearnerService {
     @Override
     public Iterable<Learner> getAllLearner() {
         return learnerRepo.findAll();
+    }
+
+    @Override
+    public Learner FindLearnerByEmailOrUser(String email) {
+        return null;
     }
 
 }
