@@ -96,7 +96,9 @@ public class SecurityConfig {
         return new UserDetailsService() {
             @Override
             public UserDetails loadUserByUsername(String email) throws UsernameNotFoundException {
+                System.out.println("loadUserByUsername");
                 Learner learner= learnerServiceImp.findByEmailOrUsername(email);
+                System.out.println("learner"+learner);
 
                 if(learner==null){
                     return null;

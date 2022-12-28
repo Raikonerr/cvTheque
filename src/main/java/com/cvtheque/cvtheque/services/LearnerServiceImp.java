@@ -35,7 +35,10 @@ public class LearnerServiceImp implements LearnerService {
         learnerRepo.delete(learner);
     }
     public Learner findByEmailOrUsername(String email) {
-        return null;
+        System.out.println("this is findByEmailOrUsername");
+    Learner learner =  learnerRepo.findByEmail(email).get();
+        System.out.println("hada learner "+learner);
+        return learner;
     }
 
 
