@@ -23,4 +23,12 @@ public class Learner extends Person {
     @OneToOne(mappedBy = "learner")
     private CV cv;
 
+    public Learner(String first_name, String last_name, String email, String password, byte[] coverLetter, boolean hasJob) {
+        super(first_name, last_name, email, password);
+        this.coverLetter = coverLetter;
+        this.hasJob = hasJob;
+    }
+
+    public Learner() {
+    }
 }
